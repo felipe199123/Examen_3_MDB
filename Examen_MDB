@@ -1,0 +1,351 @@
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY';
+
+DROP TABLE Empresas CASCADE CONSTRAINTS;
+DROP TABLE Sindicatos CASCADE CONSTRAINTS;
+DROP TABLE Solicitud_Ingreso CASCADE CONSTRAINTS;
+DROP TABLE Postulantes CASCADE CONSTRAINTS;
+DROP TABLE Afiliados CASCADE CONSTRAINTS;
+DROP TABLE Cargas CASCADE CONSTRAINTS;
+DROP TABLE Aseguradora_Vehiculos CASCADE CONSTRAINTS;
+DROP TABLE Modelos CASCADE CONSTRAINTS;
+DROP TABLE Color CASCADE CONSTRAINTS;
+DROP TABLE Marcas CASCADE CONSTRAINTS;
+DROP TABLE Tipo_Vehiculos CASCADE CONSTRAINTS;
+DROP TABLE Afiliado_Tipo_Discapacidad_Afiliados CASCADE CONSTRAINTS;
+DROP TABLE Tipo_Discapacidad_Afiliados CASCADE CONSTRAINTS;
+DROP TABLE Beneficios CASCADE CONSTRAINTS;
+DROP TABLE Extranjeros CASCADE CONSTRAINTS;
+DROP TABLE Provincias CASCADE CONSTRAINTS;
+DROP TABLE Regiones CASCADE CONSTRAINTS;
+DROP TABLE Comunas CASCADE CONSTRAINTS;
+DROP TABLE Descuento_Transportes CASCADE CONSTRAINTS;
+DROP TABLE Pago_Aranceles CASCADE CONSTRAINTS;
+DROP TABLE Tipo_Parentescos CASCADE CONSTRAINTS;
+DROP TABLE Bancos CASCADE CONSTRAINTS;
+DROP TABLE Cheques CASCADE CONSTRAINTS;
+DROP TABLE Tipo_Pagos CASCADE CONSTRAINTS;
+DROP TABLE Forma_Pagos CASCADE CONSTRAINTS;
+
+
+DROP TABLE Empresas;
+DROP TABLE Sindicatos;
+DROP TABLE Solicitud_Ingreso;
+DROP TABLE Postulantes;
+DROP TABLE Afiliados;
+DROP TABLE Cargas;
+DROP TABLE Aseguradora_Vehiculos;
+DROP TABLE Modelos;
+DROP TABLE Color;
+DROP TABLE Marcas;
+DROP TABLE Tipo_Vehiculos;
+DROP TABLE Afiliados_Tipo_Discapacidad_Afiliados;
+DROP TABLE Tipo_Discapacidad_Afiliados;
+DROP TABLE Beneficios;
+DROP TABLE Extranjeros;
+DROP TABLE Provincias;
+DROP TABLE Regiones;
+DROP TABLE Comunas;
+DROP TABLE Descuento_Transportes;
+DROP TABLE Pago_Aranceles;
+DROP TABLE Tipo_Parentescos;
+DROP TABLE Bancos;
+DROP TABLE Cheques;
+DROP TABLE Tipo_Pagos;
+DROP TABLE Forma_Pagos;
+
+
+CREATE TABLE Empresas(
+    id_empresa      NUMBER(11) NOT NULL,
+    nombre_empresa  VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Sindicatos(
+    id_sindicato                              NUMBER(11)  NOT NULL,
+    nombre_sindicato                          VARCHAR(250) NOT NULL,
+    Empresas_id_empresa                       NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Solicitud_Ingreso(
+    id_solicitud_ingreso                     NUMBER(11) NOT NULL,
+    fecha_creacion                           NUMBER(11) NOT NULL,
+    hora_creacion                            NUMBER(11) NOT NULL,
+    Sindicatos_id_sindicato                  NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Postulantes(
+    id_postulante                           NUMBER(11) NOT NULL,
+    nombre_postulante                       VARCHAR(250) NOT NULL,
+    solicitud_ingresos_id_solicitud_ingreso NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Afiliados(
+    rut_afiliado                                  NUMBER(11) NOT NULL,
+    nombre_afiliado                               VARCHAR(250) NOT NULL,
+    fecha_nacimiento                              NUMBER(11) NOT NULL,
+    Sindicatos_id_sindicato                       NUMBER(11) NOT NULL,
+    aseguradora_vehiculos_patente_vehiculo        NUMBER(11) NOT NULL,
+    descuento_transportes_id_descuento_transporte NUMBER(11) NOT NULL,
+    comunas_id_comuna                             NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Cargas(
+    id_carga                             NUMBER(11) NOT NULL,
+    nombre_carga                         VARCHAR(250) NOT NULL,
+    apellido_paterno                     VARCHAR(250) NOT NULL,
+    fecha_nacimiento                     NUMBER(11) NOT NULL,
+    direccion                            VARCHAR(250) NOT NULL,
+    Afiliados_rut_afiliado               NUMBER(11) NOT NULL,
+    tipo_parentescos_id_tipo_parentesco  NUMBER(11) NOT NULL,
+    comunas_id_comuna                    NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Aseguradora_Vehiculos(
+    patente_vehiculo                NUMBER(11) NOT NULL,
+    nombre_aseguradora_vehiculo     VARCHAR(250) NOT NULL,
+    color_id_color_vehiculo         NUMBER(11) NOT NULL,
+    tipo_vehiculos_id_tipo_vehiculo NUMBER(11) NOT NULL,
+    modelos_id_modelo               NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Modelos(
+    id_modelo                       NUMBER(11) NOT NULL,
+    nombre_modelo                   VARCHAR(250) NOT NULL,
+    marcas_id_marca                 NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Color(
+    id_color_vehiculo               NUMBER(11) NOT NULL,
+    nombre_color_vehiculo            VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Marcas(
+    id_marca              NUMBER(11) NOT NULL,
+    nombre_marca          VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Tipo_Vehiculos(
+    id_tipo_vehiculo              NUMBER(11) NOT NULL,
+    nombre_tipo_vehiculo          VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Afiliados_Tipo_Discapacidad_Afiliados(
+    afiliados_rut_afiliado                           NUMBER(11) NOT NULL,
+    tipo_discapacidad_afiliados_id_tipo_discapacidad NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Tipo_Discapacidad_Afiliados(
+    id_tipo_discapacidad             NUMBER(11) NOT NULL,
+    correo_electronico_afiliado      VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Beneficios(
+    id_beneficio                    NUMBER(11) NOT NULL,
+    nombre_beneficio                VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Extranjeros(
+    numero_pasaporte_extranjero            NUMBER(11) NOT NULL,
+    nombre_extranjero                      VARCHAR(250) NOT NULL,
+    nacionalidad_extranjero                VARCHAR(250) NOT NULL,
+    pretension_sueldo_extranjero           NUMBER(11) NOT NULL,
+    solicitud_ingreso_id_solicitud_ingreso VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Provincias(
+    id_provincia                           NUMBER(11) NOT NULL,
+    nombre_provincia                       VARCHAR(250) NOT NULL,
+    regiones_id_region                     NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Regiones(
+    id_region                       NUMBER(11) NOT NULL,
+    nombre_region                   VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Comunas(
+    id_comuna                       NUMBER(11) NOT NULL,
+    nombre_comuna                   VARCHAR(250) NOT NULL,
+    provincias_id_provincia         NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Descuento_Transportes(
+    id_descuento_transporte            NUMBER(11) NOT NULL,
+    porcentaje_de_descuento_           NUMBER(11) NOT NULL,
+    beneficios_id_beneficio            NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Pago_Aranceles(
+    id_pago_arancel                     NUMBER(11) NOT NULL,
+    fecha_pago                      NUMBER(11) NOT NULL,
+    forma_pagos_id_forma_pago       NUMBER(11) NOT NULL,
+    tipo_pagos_id_tipo_pago         NUMBER(11) NOT NULL,
+    cheques_id_cheque               NUMBER(11) NOT NULL,
+    bancos_id_banco                 NUMBER(11) NOT NULL,
+    afiliados_rut_afiliado          NUMBER(11) NOT NULL
+);
+
+CREATE TABLE Tipo_Parentescos(
+    id_tipo_parentesco              NUMBER(11) NOT NULL,
+    nombre_parentesco               VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Bancos(
+    id_banco                        NUMBER(11) NOT NULL,
+    nombre_banco                    VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Tipo_Pagos(
+    id_tipo_pago                       NUMBER(11) NOT NULL,
+    nombre_tipo_pago                   VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Forma_Pagos(
+    id_forma_pago                    NUMBER(11) NOT NULL,
+    nombre_forma_pago                VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Cheques(
+    id_cheque                    NUMBER(11) NOT NULL,
+    nombre_cheque                VARCHAR(250) NOT NULL
+);
+
+ALTER TABLE Empresas ADD CONSTRAINT Empresas_PK PRIMARY KEY (id_empresa);
+ALTER TABLE Sindicatos ADD CONSTRAINT sindicato_PK PRIMARY KEY (id_sindicato);
+ALTER TABLE Solicitud_Ingreso ADD CONSTRAINT solicitud_ingreso_PK PRIMARY KEY (id_solicitud_ingreso);
+ALTER TABLE Postulantes ADD CONSTRAINT postulantes_PK PRIMARY KEY (id_postulante);
+ALTER TABLE Afiliados ADD CONSTRAINT afiliados_PK PRIMARY KEY (rut_afiliado);
+ALTER TABLE Cargas ADD CONSTRAINT cargas_PK PRIMARY KEY (id_carga);
+ALTER TABLE Aseguradora_Vehiculos ADD CONSTRAINT aseguradora_vehiculos_PK PRIMARY KEY (patente_vehiculo);
+ALTER TABLE Modelos ADD CONSTRAINT modelos_PK PRIMARY KEY (id_modelo);
+ALTER TABLE Color ADD CONSTRAINT color_PK PRIMARY KEY (id_color_vehiculo);
+ALTER TABLE Marcas ADD CONSTRAINT marcas_PK PRIMARY KEY (id_marca);
+ALTER TABLE Tipo_Vehiculos ADD CONSTRAINT tipo_vehiculos_PK PRIMARY KEY (id_tipo_vehiculo);
+ALTER TABLE Tipo_discapacidad_Afiliados ADD CONSTRAINT tipo_discapacidad_afiliados_PK PRIMARY KEY (id_tipo_discapacidad);
+ALTER TABLE Afiliados_Tipo_Discapacidad_Afiliados ADD CONSTRAINT afiliados_tipo_discapacidad_afiliados_PK PRIMARY KEY (afiliados_rut_afiliado, tipo_discapacidad_afiliados_id_tipo_discapacidad);
+ALTER TABLE Beneficios ADD CONSTRAINT beneficios_PK PRIMARY KEY (id_beneficio);
+ALTER TABLE Extranjeros ADD CONSTRAINT extranjeros_PK PRIMARY KEY (numero_pasaporte_extranjero);
+ALTER TABLE Provincias ADD CONSTRAINT provincias_PK PRIMARY KEY (id_provincia);
+ALTER TABLE Regiones ADD CONSTRAINT regiones_PK PRIMARY KEY (id_region);
+ALTER TABLE Comunas ADD CONSTRAINT comunas_PK PRIMARY KEY (id_comuna);
+ALTER TABLE Descuento_Transportes ADD CONSTRAINT descuento_transportes_PK PRIMARY KEY (id_descuento_transporte);
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_PK PRIMARY KEY (id_pago_arancel);
+ALTER TABLE Tipo_Parentescos ADD CONSTRAINT tipo_parentescos_PK PRIMARY KEY (id_tipo_parentesco);
+ALTER TABLE Bancos ADD CONSTRAINT bancos_PK PRIMARY KEY (id_banco);
+ALTER TABLE Tipo_Pagos ADD CONSTRAINT tipo_pagos_PK PRIMARY KEY (id_tipo_pago);
+ALTER TABLE Forma_Pagos ADD CONSTRAINT forma_pagos_PK PRIMARY KEY (id_forma_pago);
+ALTER TABLE Cheques ADD CONSTRAINT cheques_PK PRIMARY KEY (id_cheque);
+
+
+ALTER TABLE Sindicatos ADD CONSTRAINT sindicatos_empresas_FK FOREIGN KEY (Empresas_id_empresa)
+    REFERENCES Empresas(id_empresa);
+    
+ALTER TABLE Solicitud_Ingreso ADD CONSTRAINT solicitud_ingresos_Sindicatos_FK FOREIGN KEY (Sindicatos_id_sindicato)
+    REFERENCES Sindicatos(id_sindicato);
+    
+ALTER TABLE Postulantes ADD CONSTRAINT postulantes_solicitud_ingresos_FK FOREIGN KEY (solicitud_ingresos_id_solicitud_ingreso)
+    REFERENCES Solicitud_Ingreso(id_solicitud_ingreso);
+    
+    
+ALTER TABLE Afiliados ADD CONSTRAINT afiliados_aseguradora_vehiculos_FK FOREIGN KEY (aseguradora_vehiculos_patente_vehiculo)
+    REFERENCES Aseguradora_Vehiculos(patente_vehiculo);
+    
+ALTER TABLE Afiliados ADD CONSTRAINT Afiliados_comunas_FK FOREIGN KEY (comunas_id_comuna)
+    REFERENCES Comunas(id_comuna);
+    
+ALTER TABLE Afiliados ADD CONSTRAINT Afiliados_descuento_transportes_FK FOREIGN KEY (descuento_transportes_id_descuento_transporte)
+    REFERENCES Descuento_Transportes(id_descuento_transporte);
+    
+ALTER TABLE Afiliados ADD CONSTRAINT Afiliados_sindicatos_FK FOREIGN KEY (sindicatos_id_sindicato)
+    REFERENCES Sindicatos(id_sindicato);      
+    
+
+ALTER TABLE Descuento_Transportes ADD CONSTRAINT descuento_transportes_beneficios_FK FOREIGN KEY (beneficios_id_beneficio)
+    REFERENCES Beneficios(id_beneficio);
+    
+ALTER TABLE Afiliados_Tipo_Discapacidad_Afiliados ADD CONSTRAINT afiliados_tipo_discapacidad_afiliados_afiliados_FK FOREIGN KEY (afiliados_rut_afiliado)
+    REFERENCES Afiliados(rut_afiliado);        
+
+ALTER TABLE Afiliados_Tipo_Discapacidad_Afiliados ADD CONSTRAINT afiliados_tipo_discapacidad_afiliados_tipo_discapacidad_afiliados_FK FOREIGN KEY (tipo_discapacidad_afiliados_id_tipo_discapacidad)
+    REFERENCES Tipo_Discapacidad_Afiliados(id_tipo_discapacidad);        
+    
+ALTER TABLE Provincias ADD CONSTRAINT provincias_regiones_FK FOREIGN KEY (regiones_id_region)
+    REFERENCES Regiones(id_region); 
+    
+ALTER TABLE Comunas ADD CONSTRAINT comunas_provincias_FK FOREIGN KEY (provincias_id_provincia)
+    REFERENCES Provincias(id_provincia);
+    
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_afiliados_FK FOREIGN KEY (afiliados_rut_afiliado)
+    REFERENCES Afiliados(rut_afiliado);
+    
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_bancos_FK FOREIGN KEY (bancos_id_banco)
+    REFERENCES Bancos(id_banco);
+    
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_cheques_FK FOREIGN KEY (cheques_id_cheque)
+    REFERENCES Cheques(id_cheque);
+    
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_forma_pagos_FK FOREIGN KEY (forma_pagos_id_forma_pago)
+    REFERENCES Forma_Pagos(id_forma_pago);    
+
+ALTER TABLE Pago_Aranceles ADD CONSTRAINT pago_aranceles_tipo_pagos_FK FOREIGN KEY (tipo_pagos_id_tipo_pago)
+    REFERENCES Tipo_pagos(id_tipo_pago);
+
+ALTER TABLE Cargas ADD CONSTRAINT cargas_afiliados_FK FOREIGN KEY (afiliados_rut_afiliado)
+    REFERENCES Afiliados(rut_afiliado);
+    
+ALTER TABLE Cargas ADD CONSTRAINT cargas_comunas_FK FOREIGN KEY (comunas_id_comuna)
+    REFERENCES Comunas(id_comuna);
+
+ALTER TABLE Cargas ADD CONSTRAINT cargas_tipo_parentescos_FK FOREIGN KEY (tipo_parentescos_id_tipo_parentesco)
+    REFERENCES Tipo_Parentescos(id_tipo_parentesco);
+    
+ALTER TABLE Aseguradora_Vehiculos ADD CONSTRAINT aseguradora_vehiculos_color_FK FOREIGN KEY (color_id_color_vehiculo)
+    REFERENCES Color(id_color_vehiculo);
+    
+ALTER TABLE Aseguradora_Vehiculos ADD CONSTRAINT aseguradora_vehiculos_modelos_FK FOREIGN KEY (modelos_id_modelo)
+    REFERENCES Modelos(id_modelo);    
+    
+ALTER TABLE Aseguradora_Vehiculos ADD CONSTRAINT aseguradora_vehiculos_tipo_vehiculos_FK FOREIGN KEY (tipo_vehiculos_id_tipo_vehiculo)
+    REFERENCES Tipo_Vehiculos(id_tipo_vehiculo);
+    
+ALTER TABLE Descuento_Transportes ADD CONSTRAINT descuento_transportes_beneficios_FK FOREIGN KEY (beneficios_id_beneficio)
+    REFERENCES Beneficios(id_beneficio);
+    
+    
+INSERT INTO Regiones VALUES (1,'Santiago');    
+INSERT INTO Regiones VALUES (2,'Concepcion');   
+INSERT INTO Regiones VALUES (3,'Ohiggins');
+INSERT INTO Regiones VALUES (4, 'Puerto Montt')
+
+INSERT INTO Tipo_Parentescos VALUES (1,'Papa');    
+INSERT INTO Tipo_Parentescos VALUES (2,'Mama');   
+INSERT INTO Tipo_Parentescos VALUES (3,'Abuelo');
+INSERT INTO Tipo_Parentescos VALUES (4, 'Hijo')
+
+INSERT INTO Bancos VALUES(1, 'Scotiabank');
+INSERT INTO Bancos VALUES(2, 'Banco Estado');
+
+INSERT INTO Beneficios VALUES(1, 'Descuento Transporte');
+
+INSERT INTO Comunas VALUES(1,'Cerrillos');
+INSERT INTO Comunas VALUES(2,'La Pintana');
+INSERT INTO Comunas VALUES(3,'San Ramon');
+
+INSERT INTO Afiliados VALUES(12345678910, 'Felipe','23/06/2004',1,1,1,1)
+
+SELECT * FROM Tipo_Parentescos;
+DESCRIBE Tipo_Parentesco
+
+SELECT * FROM Afiliados;
+DESCRIBE Afiliados
+
+SELECT * FROM Beneficios;
+DESCRIBE Beneficios
+
+SELECT * FROM Bancos;
+DESCRIBE Bancos
+
+SELECT * FROM Regiones;
+DESCRIBE Regiones
+
+SELECT * FROM Comunas;
+DESCRIBE Comunas
