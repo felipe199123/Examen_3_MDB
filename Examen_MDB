@@ -1,4 +1,4 @@
-ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY';
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YY';
 
 DROP TABLE Empresas CASCADE CONSTRAINTS;
 DROP TABLE Sindicatos CASCADE CONSTRAINTS;
@@ -81,7 +81,7 @@ CREATE TABLE Postulantes(
 CREATE TABLE Afiliados(
     rut_afiliado                                  NUMBER(11) NOT NULL,
     nombre_afiliado                               VARCHAR(250) NOT NULL,
-    fecha_nacimiento                              NUMBER(11) NOT NULL,
+    fecha_nacimiento                              VARCHAR(250) NOT NULL,
     Sindicatos_id_sindicato                       NUMBER(11) NOT NULL,
     aseguradora_vehiculos_patente_vehiculo        NUMBER(11) NOT NULL,
     descuento_transportes_id_descuento_transporte NUMBER(11) NOT NULL,
@@ -310,11 +310,16 @@ ALTER TABLE Aseguradora_Vehiculos ADD CONSTRAINT aseguradora_vehiculos_tipo_vehi
 ALTER TABLE Descuento_Transportes ADD CONSTRAINT descuento_transportes_beneficios_FK FOREIGN KEY (beneficios_id_beneficio)
     REFERENCES Beneficios(id_beneficio);
     
-    
+
 INSERT INTO Regiones VALUES (1,'Santiago');    
 INSERT INTO Regiones VALUES (2,'Concepcion');   
-INSERT INTO Regiones VALUES (3,'Ohiggins');
-INSERT INTO Regiones VALUES (4, 'Puerto Montt')
+INSERT INTO Regiones VALUES (3,'Antofagasta');
+INSERT INTO Regiones VALUES (4, 'Copiapo')
+
+INSERT INTO Provincias VALUES (1,'Santiago de Chile',1);    
+INSERT INTO Provincias VALUES (2,'Provincia de Concepcion',2);   
+INSERT INTO Provincias VALUES (3,'Provincia de Antofagasta',3);
+INSERT INTO Provincias VALUES (4,'Provincia de Copiapo',4);
 
 INSERT INTO Tipo_Parentescos VALUES (1,'Papa');    
 INSERT INTO Tipo_Parentescos VALUES (2,'Mama');   
@@ -326,11 +331,13 @@ INSERT INTO Bancos VALUES(2, 'Banco Estado');
 
 INSERT INTO Beneficios VALUES(1, 'Descuento Transporte');
 
-INSERT INTO Comunas VALUES(1,'Cerrillos');
-INSERT INTO Comunas VALUES(2,'La Pintana');
-INSERT INTO Comunas VALUES(3,'San Ramon');
+INSERT INTO Comunas VALUES(1,'Cerrillos',1);
+INSERT INTO Comunas VALUES(2,'Talcahuano',2);
+INSERT INTO Comunas VALUES(3,'Rengo',3);
+INSERT INTO Comunas VALUES(4,'San Juan',4);
 
-INSERT INTO Afiliados VALUES(12345678910, 'Felipe','23/06/2004',1,1,1,1)
+INSERT INTO Afiliados VALUES(23603743111,'Felipe','23/06/24',1,1,1,1);
+INSERT INTO Afiliados VALUES(11111111111,'Juana','12/04/98',3,1,2,4);
 
 SELECT * FROM Tipo_Parentescos;
 DESCRIBE Tipo_Parentesco
@@ -346,6 +353,9 @@ DESCRIBE Bancos
 
 SELECT * FROM Regiones;
 DESCRIBE Regiones
+
+SELECT * FROM Provincias;
+DESCRIBE Provincias
 
 SELECT * FROM Comunas;
 DESCRIBE Comunas
